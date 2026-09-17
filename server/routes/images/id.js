@@ -1,5 +1,5 @@
-import { route, send, queryOf, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { readImage, deleteImage } from '../_lib/store.js'
+import { route, send, queryOf, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { readImage, deleteImage } from '../../lib/store.js'
 
 export default route({
   GET: async (req, res) => {

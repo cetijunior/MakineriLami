@@ -1,5 +1,5 @@
-import { route, send, readBody, queryOf, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { updateCategory, deleteCategory } from '../_lib/store.js'
+import { route, send, readBody, queryOf, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { updateCategory, deleteCategory } from '../../lib/store.js'
 
 export default route({
   PUT: async (req, res) => {

@@ -1,47 +1,17 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import fs from 'node:fs'
-import path from 'node:path'
 
 /**
- * Dev-only: serve the Vercel functions in /api from the Vite dev server,
- * with the same file routing Vercel uses (static file > index > [param]).
- * In production Vercel runs these files natively.
+ * Dev-only: send /api/* to the same router the Vercel function uses.
+ * In production Vercel rewrites /api/* to api/index.js (see vercel.json).
  */
-function vercelApiDev() {
-  const apiDir = path.resolve(import.meta.dirname, 'api')
-
-  function resolve(urlPath) {
-    const parts = urlPath.replace(/^\/api\/?/, '').split('/').filter(Boolean)
-    const direct = path.join(apiDir, ...parts) + '.js'
-    if (parts.length && fs.existsSync(direct)) return { file: direct, params: {} }
-    const index = path.join(apiDir, ...parts, 'index.js')
-    if (fs.existsSync(index)) return { file: index, params: {} }
-    if (parts.length) {
-      const dir = path.join(apiDir, ...parts.slice(0, -1))
-      if (fs.existsSync(dir)) {
-        const dyn = fs.readdirSync(dir).find((f) => /^\[.+\]\.js$/.test(f))
-        if (dyn) {
-          return { file: path.join(dir, dyn), params: { [dyn.slice(1, -4)]: decodeURIComponent(parts.at(-1)) } }
-        }
-      }
-    }
-    return null
-  }
-
+function apiDev() {
   return {
-    name: 'vercel-api-dev',
+    name: 'api-dev',
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         if (!req.url.startsWith('/api/')) return next()
-        const url = new URL(req.url, 'http://localhost')
-        const hit = resolve(url.pathname)
-        if (!hit) {
-          res.statusCode = 404
-          res.setHeader('Content-Type', 'application/json')
-          return res.end(JSON.stringify({ error: 'Not found' }))
-        }
         try {
           const chunks = []
           for await (const c of req) chunks.push(c)
@@ -51,9 +21,8 @@ function vercelApiDev() {
             try { body = JSON.parse(raw) } catch { body = raw }
           }
           req.body = body
-          req.query = { ...Object.fromEntries(url.searchParams), ...hit.params }
-          const mod = await server.ssrLoadModule(hit.file)
-          await mod.default(req, res)
+          const { default: router } = await server.ssrLoadModule('/server/router.js')
+          await router(req, res)
         } catch (err) {
           console.error(err)
           res.statusCode = 500
@@ -70,6 +39,6 @@ export default defineConfig(({ mode }) => {
   for (const [k, v] of Object.entries(env)) if (process.env[k] === undefined) process.env[k] = v
 
   return {
-    plugins: [react(), vercelApiDev()],
+    plugins: [react(), apiDev()],
   }
 })

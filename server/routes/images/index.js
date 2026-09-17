@@ -1,5 +1,5 @@
-import { route, send, readBody, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { saveImage } from '../_lib/store.js'
+import { route, send, readBody, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { saveImage } from '../../lib/store.js'
 
 export const config = { api: { bodyParser: { sizeLimit: '6mb' } } }
 

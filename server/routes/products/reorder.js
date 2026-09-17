@@ -1,5 +1,5 @@
-import { route, send, readBody, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { reorderProducts } from '../_lib/store.js'
+import { route, send, readBody, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { reorderProducts } from '../../lib/store.js'
 
 export default route({
   POST: async (req, res) => {

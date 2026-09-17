@@ -1,4 +1,4 @@
-import { route, send, readBody, checkPassword, signToken, NO_CACHE } from '../_lib/http.js'
+import { route, send, readBody, checkPassword, signToken, NO_CACHE } from '../../lib/http.js'
 
 // naive per-instance throttle against password guessing
 const attempts = new Map()

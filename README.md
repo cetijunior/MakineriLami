@@ -36,7 +36,7 @@ cp .env.example .env.local   # fill in MONGODB_URI and ADMIN_PASSWORD
 npm run dev                  # storefront + /api on http://localhost:5173
 ```
 
-`vite.config.js` includes a small dev plugin that serves the `api/` functions with Vercel's file routing, so `vercel dev` isn't needed. If you edit a file under `api/`, restart the dev server.
+`vite.config.js` includes a small dev plugin that sends `/api/*` to `server/router.js`, the same router production uses, so `vercel dev` isn't needed. To add an endpoint, create a module in `server/routes/` and register it in `server/router.js`. Don't add files to `api/`, because each one becomes a separate function and counts toward the Hobby limit of 12.
 
 ```bash
 npm run build   # production bundle (admin is code-split, shoppers never load it)
@@ -46,16 +46,18 @@ npm run lint
 ## How it's organised
 
 ```
-api/                    Vercel functions
-  _lib/db.js            cached Mongo client, indexes, first-run seeding
-  _lib/store.js         data layer + validation (products, categories, settings, images)
-  _lib/http.js          JSON helpers, admin auth (HMAC-signed 7-day token)
-  catalog.js            GET everything the storefront needs in one call
-  products/ categories/ settings.js   CRUD (writes require the admin token)
-  images/index.js       POST upload (browser-compressed WebP, stored in Mongo)
-  images/import.js      POST {url}: Instagram/TikTok post or image link → stored copy
-  images/[id].js        GET image (immutable cache)
-  auth/login.js, me.js, health.js
+api/index.js            the only Vercel function (Hobby allows max 12); /api/* is rewritten to it
+server/
+  router.js             dispatches /api/<path> to a route module
+  lib/db.js             cached Mongo client, indexes, first-run seeding
+  lib/store.js          data layer + validation (products, categories, settings, images)
+  lib/http.js           JSON helpers, admin auth (HMAC-signed 7-day token)
+  routes/catalog.js     GET everything the storefront needs in one call
+  routes/products/ categories/ settings.js   CRUD (writes require the admin token)
+  routes/images/index.js    POST upload (browser-compressed WebP, stored in Mongo)
+  routes/images/import.js   POST {url}: Instagram/TikTok post or image link → stored copy
+  routes/images/id.js       GET image (immutable cache)
+  routes/auth/login.js, me.js, health.js
 shared/seed.js          starting catalogue; also the offline fallback in the browser
 src/
   pages/Home.jsx        storefront

@@ -1,5 +1,5 @@
-import { route, send, readBody, queryOf, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { getProduct, updateProduct, deleteProduct, StoreError } from '../_lib/store.js'
+import { route, send, readBody, queryOf, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { getProduct, updateProduct, deleteProduct, StoreError } from '../../lib/store.js'
 
 export default route({
   GET: async (req, res) => {

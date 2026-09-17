@@ -1,6 +1,6 @@
 // Public: everything the storefront needs, in one request.
-import { route, send, PUBLIC_CACHE } from './_lib/http.js'
-import { listCategories, listProducts, getSettings, dbConfigured } from './_lib/store.js'
+import { route, send, PUBLIC_CACHE } from '../lib/http.js'
+import { listCategories, listProducts, getSettings, dbConfigured } from '../lib/store.js'
 
 export default route({
   GET: async (req, res) => {

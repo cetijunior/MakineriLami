@@ -3,8 +3,8 @@
  * direct image URL. The image is downloaded and stored in MongoDB, because
  * Instagram and TikTok CDN links expire after a few days and block hotlinking.
  */
-import { route, send, readBody, requireAdmin, NO_CACHE } from '../_lib/http.js'
-import { saveImage, StoreError } from '../_lib/store.js'
+import { route, send, readBody, requireAdmin, NO_CACHE } from '../../lib/http.js'
+import { saveImage, StoreError } from '../../lib/store.js'
 
 const UA_BOT = 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
 const UA_BROWSER =

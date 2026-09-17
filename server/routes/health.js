@@ -1,5 +1,5 @@
-import { route, send, NO_CACHE } from './_lib/http.js'
-import { getDb, hasDb } from './_lib/db.js'
+import { route, send, NO_CACHE } from '../lib/http.js'
+import { getDb, hasDb } from '../lib/db.js'
 
 export default route({
   GET: async (req, res) => {
