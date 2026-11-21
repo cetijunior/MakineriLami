@@ -7,7 +7,7 @@ import { PhTile } from './Catalogue.jsx'
 const FORM_KEY = 'ml-inquiry-form'
 
 export function InquiryTray() {
-  const { settings: s, lines, setQty, clear, trayOpen, closeTray } = useStore()
+  const { settings: s, lines, setQty, clear, trayOpen, closeTray} = useStore()
   const [form, setForm] = useState(() => {
     try { return JSON.parse(localStorage.getItem(FORM_KEY)) || { name: '', city: '', note: '' } } catch { return { name: '', city: '', note: '' } }
   })
@@ -35,6 +35,12 @@ export function InquiryTray() {
     'Ju lutem çmimin dhe disponueshmërinë. Faleminderit!',
   ].filter((x) => x !== false && x !== undefined).join('\n')
 
+  const goCatalogue = () => {
+    closeTray()
+    // let the tray close and the body unlock before scrolling
+    setTimeout(() => document.getElementById('katalog')?.scrollIntoView({ behavior: 'smooth' }), 260)
+  }
+
   const field = (k) => ({ value: form[k], onChange: (e) => setForm((f) => ({ ...f, [k]: e.target.value })) })
 
   return (
@@ -51,8 +57,15 @@ export function InquiryTray() {
         <div className="tray-b">
           {lines.length === 0 ? (
             <div className="tray-empty">
-              <CartIcon />
-              <p style={{ margin: 0 }}>Lista është bosh.<br />Shtoni pjesët që ju interesojnë nga katalogu.</p>
+              <span className="te-ic"><CartIcon /></span>
+              <h4>Lista juaj është ende bosh</h4>
+              <p>Zgjidhni makineritë ose pjesët që ju interesojnë dhe shtojini këtu. Në fund i dërgoni të gjitha me një mesazh në WhatsApp dhe merrni çmimin me foto reale, brenda ditës.</p>
+              <ol className="te-steps">
+                <li><b>1</b>Shtoni artikujt nga katalogu</li>
+                <li><b>2</b>Dërgoni listën në WhatsApp</li>
+                <li><b>3</b>Merrni çmim dhe foto shtesë</li>
+              </ol>
+              <button className="btn btn-y te-cta" onClick={goCatalogue}>Shfleto katalogun</button>
             </div>
           ) : (
             lines.map(({ product: p, qty }) => (

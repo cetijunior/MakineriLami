@@ -5,12 +5,23 @@ import { CATEGORIES, PRODUCTS, SETTINGS } from '../../shared/seed.js'
 
 const StoreCtx = createContext(null)
 
+/**
+ * Storefront shows only real listings: products with at least one photo, and
+ * categories that still have products after that. The admin panel reads the
+ * API directly, so items without photos stay editable there.
+ */
+function visible({ categories, products, settings }) {
+  const shown = products.filter((p) => p.images?.length > 0)
+  const used = new Set(shown.map((p) => p.category))
+  return { categories: categories.filter((c) => used.has(c.slug)), products: shown, settings }
+}
+
 /** Built-in catalogue: shown instantly and used if the API is unreachable. */
-const FALLBACK = {
+const FALLBACK = visible({
   categories: CATEGORIES.map((c, i) => ({ ...c, _id: `seed-cat-${i}` })),
   products: PRODUCTS.map((p, i) => ({ ...p, _id: `seed-prod-${i}` })),
   settings: SETTINGS,
-}
+})
 
 const CART_KEY = 'ml-inquiry-v2'
 
@@ -34,11 +45,11 @@ export function StoreProvider({ children }) {
     api('/catalog', { signal: ctl.signal })
       .then((data) => {
         if (data?.products && data?.categories) {
-          setCatalog({
+          setCatalog(visible({
             categories: data.categories,
             products: data.products,
             settings: { ...SETTINGS, ...(data.settings || {}) },
-          })
+          }))
         }
       })
       .catch(() => { /* keep fallback */ })

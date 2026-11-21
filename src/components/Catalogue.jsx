@@ -26,6 +26,7 @@ export function ProductCard({ p }) {
         {img ? <img src={img} alt={p.name} loading="lazy" /> : <PhTile icon={p.icon} />}
         <span className={`badge ${st.cls}`}>{st.label}</span>
         <span className="zoom"><ZoomIcon /></span>
+        {p.images?.length > 1 && <span className="card-count">{p.images.length} foto</span>}
       </Link>
       <div className="card-body">
         <span className="card-ref">{p.ref}</span>
@@ -38,18 +39,18 @@ export function ProductCard({ p }) {
         )}
         <div className="card-foot">
           <span className="price">Çmimi me kontakt<em>Përgjigje brenda 24h</em></span>
+          <button className={`btn btn-y add${inCart ? ' in' : ''}`} onClick={() => add(p.ref)}>
+            {inCart ? <>Në listë · {inCart}</> : <>Shto<span className="long"> në kërkesë</span></>}
+          </button>
           <a
-            className="icon-btn"
+            className="btn btn-g wa"
             href={waLink(s.whatsapp, `Përshëndetje! Më intereson ${p.name} [${p.ref}]. Sa kushton?`)}
             target="_blank"
             rel="noopener"
             aria-label={`Pyet në WhatsApp për ${p.name}`}
           >
-            <WaIcon />
+            <WaIcon /><span className="long">WhatsApp</span>
           </a>
-          <button className={`btn btn-y add${inCart ? ' in' : ''}`} onClick={() => add(p.ref)}>
-            {inCart ? `Në listë · ${inCart}` : 'Shto në kërkesë'}
-          </button>
         </div>
       </div>
     </article>
@@ -63,6 +64,7 @@ export function Catalogue({ query, onQuery, category, stock, onStock }) {
 
   return (
     <section className="sec" id="katalog">
+      <div className="hazard thin" aria-hidden="true" />
       <div className="wrap">
         <div className="sec-head rv">
           <div>

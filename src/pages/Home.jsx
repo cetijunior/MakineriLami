@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useStore, useReveal } from '../lib/store.jsx'
-import { UtilBar, Header } from '../components/Header.jsx'
+import { Header } from '../components/Header.jsx'
 import { Hero } from '../components/Hero.jsx'
 import { Catalogue } from '../components/Catalogue.jsx'
 import { ProductModal } from '../components/ProductModal.jsx'
@@ -50,7 +50,6 @@ export default function Home() {
 
   return (
     <>
-      <UtilBar />
       <Header query={query} onQuery={onQuery} category={category} onCategory={pickCategory} />
       <main>
         <Hero onCategory={pickCategory} />

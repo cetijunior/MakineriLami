@@ -3,6 +3,7 @@
  * Used to populate MongoDB on first connect, and served as-is when no
  * MONGODB_URI is configured, so the site is never empty.
  */
+import { INVENTORY_CATEGORIES, INVENTORY_PRODUCTS } from './inventory.js'
 
 export const CATEGORIES = [
   { slug: 'makineri', label: 'Makineri', icon: 'exc', order: 1, active: true },
@@ -10,70 +11,10 @@ export const CATEGORIES = [
   { slug: 'hidraulik', label: 'Hidraulikë', icon: 'cyl', order: 3, active: true },
   { slug: 'motor', label: 'Motor & transmision', icon: 'eng', order: 4, active: true },
   { slug: 'ecje', label: 'Goma & zinxhirë', icon: 'track', order: 5, active: true },
+  ...INVENTORY_CATEGORIES,
 ]
 
 export const PRODUCTS = [
-  {
-    ref: 'M-330',
-    category: 'makineri',
-    stock: 'makine',
-    name: 'Ekskavator CAT 330 Hidraulik',
-    short: 'Klasa 30 ton. Motor Cat C7.1 ~273 hp, gërmim deri ~7.2 m.',
-    images: ['/assets/cat330.jpg'],
-    tags: ['CAT', '30 ton', 'Hidraulik'],
-    bullets: [
-      'Motor Cat C7.1, rreth 273 hp, kursim karburanti',
-      'Thellësi gërmimi deri rreth 7.2 m, kovë e madhe',
-      'Teknologji Cat: Grade Assist, Payload',
-      'Kabinë moderne me ekran 10 inç',
-      'Gjendje pune, gati për kantier',
-    ],
-    specs: [
-      { label: 'Motor', value: 'Cat C7.1 · ~273 hp' },
-      { label: 'Thellësi gërmimi', value: 'deri ~7.2 m' },
-      { label: 'Klasa', value: '30 ton' },
-      { label: 'Kabina', value: 'Ekran 10", Grade Assist' },
-    ],
-    note: 'Çmimi dhe orët e punës jepen me kontakt. Shikimi në Zall-Herr.',
-    badge: 'Klasa 30 ton',
-    featured: true,
-    active: true,
-    order: 1,
-  },
-  {
-    ref: 'M-DMP',
-    category: 'makineri',
-    stock: 'makine',
-    name: 'Dumper Terex Benford 4x4',
-    short: 'Skip rrotullues 180°, shkarkim hidraulik, kapacitet ~3 deri 6 ton.',
-    images: [
-      '/assets/dumper-front.jpg',
-      '/assets/dumper-sidel.jpg',
-      '/assets/dumper-sider.jpg',
-      '/assets/dumper-back.jpg',
-      '/assets/dumper-yard1.jpg',
-      '/assets/dumper-yard2.jpg',
-    ],
-    tags: ['Terex', '4x4', 'Skip 180°'],
-    bullets: [
-      '4x4 me rrota të mëdha off-road, ecën në terren të vështirë',
-      'Skip i madh me shkarkim hidraulik dhe rrotullim 180°',
-      'Kapacitet rreth 3 deri 6 ton sipas modelit',
-      'Motor diesel, i mirëmbajtur nga flotë profesionale',
-      'Për dhe, zhavorr, rërë, beton dhe mbeturina',
-    ],
-    specs: [
-      { label: 'Tërheqja', value: '4x4 off-road' },
-      { label: 'Kapaciteti', value: '~3 deri 6 ton' },
-      { label: 'Skipi', value: 'Hidraulik, rrotullues' },
-      { label: 'Motori', value: 'Diesel, i mirëmbajtur' },
-    ],
-    note: 'I përdorur por solid. Çmimi me kontakt.',
-    badge: 'Skip rrotullues 180°',
-    featured: true,
-    active: true,
-    order: 2,
-  },
   {
     ref: 'KV-01',
     category: 'kova',
@@ -289,6 +230,7 @@ export const PRODUCTS = [
     active: true,
     order: 13,
   },
+  ...INVENTORY_PRODUCTS,
 ]
 
 export const SETTINGS = {

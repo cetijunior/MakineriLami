@@ -25,7 +25,7 @@ export function Trust() {
   )
 }
 
-function Spotlight({ p }) {
+function Spotlight({ p, n }) {
   const { settings: s, add } = useStore()
   const [idx, setIdx] = useState(0)
   const imgs = p.images || []
@@ -34,6 +34,7 @@ function Spotlight({ p }) {
       <div className="mach-gal">
         <div className="mach-main">
           {imgs.length ? <img src={imgs[idx]} alt={p.name} loading="lazy" /> : <div className="ph-tile"><Icon name={p.icon || 'exc'} /></div>}
+          <span className="mach-flag">★ Në vëmendje</span>
         </div>
         {imgs.length > 1 && (
           <div className="thumbs">
@@ -46,8 +47,13 @@ function Spotlight({ p }) {
         )}
       </div>
       <div className="mach-txt">
-        {p.badge && <span className="mtag">{p.badge}</span>}
-        <h3>{p.name}</h3>
+        <div className="mach-head">
+          <b className="mach-n">{String(n).padStart(2, '0')}</b>
+          <div>
+            {p.badge && <span className="mtag">{p.badge}</span>}
+            <h3>{p.name}</h3>
+          </div>
+        </div>
         {p.short && <p>{p.short}</p>}
         {p.specs?.length > 0 && (
           <dl className="specs">
@@ -76,16 +82,17 @@ export function Machines() {
   const featured = products.filter((p) => p.featured)
   if (!featured.length) return null
   return (
-    <section className="sec" id="makineri">
+    <section className="sec sec-dark" id="makineri">
+      <div className="hazard" aria-hidden="true" />
       <div className="wrap">
         <div className="sec-head rv">
           <div>
-            <span className="kicker">Të veçanta</span>
-            <h2>Në shitje sot</h2>
+            <span className="kicker">Në vëmendje · Në shitje sot</span>
+            <h2>Makineritë e javës</h2>
             <p>Të parë në punë, jo në letër. Shikimi organizohet në fushë me takim paraprak.</p>
           </div>
         </div>
-        {featured.map((p) => <Spotlight key={p._id || p.ref} p={p} />)}
+        {featured.map((p, i) => <Spotlight key={p._id || p.ref} p={p} n={i + 1} />)}
       </div>
     </section>
   )

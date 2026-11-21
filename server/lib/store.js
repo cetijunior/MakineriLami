@@ -50,7 +50,7 @@ export async function listCategories({ includeInactive = false } = {}) {
 export async function listProducts({ includeInactive = false } = {}) {
   const d = await db()
   if (!d) {
-    const rows = PRODUCTS.map((p, i) => ({ ...p, _id: `seed-prod-${i}` }))
+    const rows = PRODUCTS.map((p, i) => ({ ...p, _id: `seed-prod-${i}` })).sort((a, b) => (a.order || 0) - (b.order || 0))
     return includeInactive ? rows : rows.filter((p) => p.active !== false)
   }
   const q = includeInactive ? {} : { active: { $ne: false } }

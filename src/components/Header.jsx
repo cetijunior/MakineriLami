@@ -25,11 +25,17 @@ export function UtilBar() {
 export function Header({ query, onQuery, category, onCategory }) {
   const { settings: s, categories, products, count, openTray } = useStore()
   const [stuck, setStuck] = useState(false)
+  const [over, setOver] = useState(true)
   const [menu, setMenu] = useState(false)
   useBodyLock(menu)
 
   useEffect(() => {
-    const on = () => setStuck(window.scrollY > 40)
+    const on = () => {
+      setStuck(window.scrollY > 40)
+      // transparent + compact while the full-height hero is under the bar
+      const hero = document.getElementById('top')
+      setOver(Boolean(hero) && window.scrollY < hero.offsetHeight * 0.75 - 70)
+    }
     on()
     window.addEventListener('scroll', on, { passive: true })
     return () => window.removeEventListener('scroll', on)
@@ -47,7 +53,7 @@ export function Header({ query, onQuery, category, onCategory }) {
 
   return (
     <>
-      <header className={`head${stuck ? ' stuck' : ''}`}>
+      <header className={`head${stuck ? ' stuck' : ''}${over && !menu ? ' over' : ''}`}>
         <div className="wrap head-in">
           <a href="/" className="brand" aria-label={`${s.businessName}, kreu`}>
             <img src="/assets/logo.png" alt={`Logo ${s.businessName}`} width="46" height="46" />
