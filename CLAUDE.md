@@ -9,7 +9,7 @@
 | | |
 |---|---|
 | Client | Makineri Lami, a Rritje Sade portfolio client (listed on rritjesade.com since 2026-09-17) |
-| Status | Live on **Cloudflare Pages**: https://makineri-lami.pages.dev (moved 2026-11-21; Vercel deployment disabled, old Atlas cluster gone). Deploy = `wrangler pages deploy`, not git push |
+| Status | Live on **Cloudflare Pages**: https://makineri-lami.pages.dev (moved 2026-11-21; Vercel project deleted, old Atlas cluster gone). Deploy = `wrangler pages deploy`, not git push |
 | Language | Albanian UI (stock values: `stok` / `porosi` / `makine`, "Në shitje sot") |
 
 ## 2. Stack & methods
@@ -29,7 +29,6 @@ migrations/            D1 schema
 wrangler.toml          Pages config + D1/R2 bindings
 server/router.js       /api/<path> dispatcher
 server/lib/            db (D1/R2 bindings, seeding) · store (data + validation) · http (JSON, auth)
-api/, vercel.json      old Vercel setup, unused
 server/routes/         catalog, products/, categories/, settings, images/ (upload, import, get), auth/, health
 shared/seed.js         starting catalogue + browser offline fallback
 shared/inventory.js    Nov 2026 stock (imported into seed.js)
@@ -69,7 +68,7 @@ Health: `/api/health` should return `configured: true, connected: true`.
 ## 7. Open ends
 
 - Old live data (admin edits made on Vercel/Atlas) was lost with the deleted Atlas cluster; the catalogue restarted from the seed on 2026-11-21.
-- `api/`, `vercel.json` and the Vercel project can be deleted (needs CJ's OK). Pages project is not git-connected: deploys are manual with wrangler.
+- Pages project is not git-connected: deploys are manual with wrangler. Vercel project and files deleted 2026-11-21.
 - No custom domain yet; client should be told about `makineri-lami.pages.dev`.
 - `.env.example` / `.gitignore` carry uncommitted user edits.
 - No tests.

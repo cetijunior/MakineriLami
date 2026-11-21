@@ -1,6 +1,6 @@
 # makineri-lami: migration to Cloudflare (already not Next.js)
 
-> **Done 2026-11-21.** Live at https://makineri-lami.pages.dev. Mongo data could not be exported (cluster deleted), so steps 1 and 6 were skipped; the catalogue restarted from the seed. Remaining: step 7 (delete `api/`, `vercel.json`, Vercel project) with CJ's OK. Details in CHANGELOG.md.
+> **Done 2026-11-21.** Live at https://makineri-lami.pages.dev. Mongo data could not be exported (cluster deleted), so steps 1 and 6 were skipped; the catalogue restarted from the seed. Step 7 done too: `api/`, `vercel.json` and the Vercel project deleted. Details in CHANGELOG.md.
 
 Shared stack and checks: `~/Desktop/CLOUDFLARE-MIGRATION.md`. **Effort: M** (about 1.5 days). Wave 3.
 This one is **not Next.js**: it's React 19 + Vite 8 + React Router 7, so the **frontend doesn't change at all**. The work is the API and the database.

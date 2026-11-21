@@ -7,7 +7,7 @@
 - **Data:** D1 database `makineri-lami` (binding `DB`, schema in `migrations/0001_init.sql`: products / categories / settings as JSON documents). Seeds itself on first request when empty.
 - **Uploaded photos:** R2 bucket `makineri-lami-images` (binding `IMAGES`), served from `/api/images/<id>` with immutable caching.
 - **Secrets:** `ADMIN_PASSWORD` set on the Pages project (same value as before). `MONGODB_*` no longer used; `mongodb` package removed.
-- `public/_headers` replaces the header rules from `vercel.json`. `api/` and `vercel.json` are still in the repo, unused.
+- `public/_headers` replaces the header rules from `vercel.json`. `api/`, `vercel.json` and the Vercel project `makineri-lami` were deleted.
 - Removed `scripts/import-inventory.mjs` (MongoDB import, no longer needed).
 - Hero headline shortened to “Pjesë dhe makineri ndërtimi” (accent line removed).
 - Header on desktop aligns with the full-bleed hero; the search box stays inside the black panel (hidden over the hero between 981–1240px). Larger hero type on screens ≥1700px.
