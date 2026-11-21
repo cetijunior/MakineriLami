@@ -9,6 +9,6 @@ export default route({
       listProducts(),
       getSettings(),
     ])
-    send(res, 200, { categories, products, settings, source: dbConfigured() ? 'mongodb' : 'seed' }, PUBLIC_CACHE)
+    send(res, 200, { categories, products, settings, source: dbConfigured() ? 'd1' : 'seed' }, PUBLIC_CACHE)
   },
 })

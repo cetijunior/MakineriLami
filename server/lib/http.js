@@ -93,7 +93,7 @@ export function checkPassword(input) {
 
 export function requireAdmin(req) {
   if (!process.env.ADMIN_PASSWORD) {
-    const e = new Error('ADMIN_PASSWORD nuk është vendosur në Vercel. Paneli është i çaktivizuar.')
+    const e = new Error('ADMIN_PASSWORD nuk është vendosur në Cloudflare. Paneli është i çaktivizuar.')
     e.status = 503
     throw e
   }

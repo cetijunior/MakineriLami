@@ -686,3 +686,16 @@ main{padding-top:0}
 @media (max-width:430px){.card-foot .btn{font-size:12px;height:40px;gap:5px;padding-inline:4px}}
 .card-foot .add{order:1}.card-foot .wa{order:2}
 @media (max-width:520px){.card-foot .long{display:none}.card-foot .btn{font-size:14px}}
+
+/* header aligns with the full-bleed hero; search stays inside the black panel */
+@media (min-width:981px){
+  .head .wrap{max-width:none;padding-inline:clamp(20px,3.6vw,56px)}
+  .head.over .hsearch{max-width:clamp(0px,calc(45vw - 300px),440px)}
+}
+@media (min-width:981px) and (max-width:1240px){.head.over .hsearch{display:none}}
+@media (min-width:1700px){
+  .cover-txt{padding-left:clamp(56px,6vw,140px)}
+  .hero h1{font-size:clamp(74px,4.4vw,104px)}
+  .hero p.lead{font-size:19px}
+}
+@media (min-width:1700px){.head .wrap{padding-inline:clamp(56px,6vw,140px)}}

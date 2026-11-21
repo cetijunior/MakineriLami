@@ -118,7 +118,7 @@ export default function Admin() {
                 <InfoIcon />
                 <div>
                   <b>Baza e të dhënave nuk është lidhur ende</b>
-                  Dyqani po shfaq katalogun fillestar. Ndryshimet nuk mund të ruhen derisa të shtohet <code>MONGODB_URI</code> te Vercel → Settings → Environment Variables, dhe të bëhet redeploy.
+                  Dyqani po shfaq katalogun fillestar. Ndryshimet nuk mund të ruhen derisa baza D1 të lidhet me projektin në Cloudflare Pages (binding <code>DB</code>).
                 </div>
               </div>
             )}
@@ -127,7 +127,7 @@ export default function Admin() {
                 <InfoIcon />
                 <div>
                   <b>Lidhja me MongoDB dështoi</b>
-                  Kontrolloni që <code>MONGODB_URI</code> është i saktë dhe që te Atlas → Network Access lejohet <code>0.0.0.0/0</code>.
+                  Kontrolloni bindings <code>DB</code> dhe <code>IMAGES</code> te Cloudflare Pages → Settings.
                 </div>
               </div>
             )}

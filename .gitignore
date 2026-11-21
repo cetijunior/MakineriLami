@@ -44,3 +44,6 @@ videos/*
 !videos/*.js
 !videos/*.ts
 public/_next-video
+.env*
+.wrangler
+.dev.vars

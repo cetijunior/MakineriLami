@@ -1,0 +1,14 @@
+name = "makineri-lami"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "makineri-lami"
+database_id = "b97a5c8f-8300-4d01-b47d-0023a521b611"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "makineri-lami-images"

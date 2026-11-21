@@ -2,8 +2,9 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 /**
- * Dev-only: send /api/* to the same router the Vercel function uses.
- * In production Vercel rewrites /api/* to api/index.js (see vercel.json).
+ * Dev-only: send /api/* to the same router the Pages Function uses.
+ * Without D1 bindings it serves the seed catalogue read-only; use
+ * `npx wrangler pages dev dist` for the full stack with local D1 + R2.
  */
 function apiDev() {
   return {
@@ -34,7 +35,7 @@ function apiDev() {
 }
 
 export default defineConfig(({ mode }) => {
-  // expose .env / .env.local to the dev API (MONGODB_URI, ADMIN_PASSWORD)
+  // expose .env / .env.local to the dev API (ADMIN_PASSWORD)
   const env = loadEnv(mode, process.cwd(), '')
   for (const [k, v] of Object.entries(env)) if (process.env[k] === undefined) process.env[k] = v
 

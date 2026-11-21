@@ -243,8 +243,8 @@ export const SETTINGS = {
   hours: 'Hën - Sht, 08:00 - 18:00',
   responseTime: 'Zakonisht brenda 24 orësh',
   heroEyebrow: 'Stok i ri çdo javë · Zall-Herr',
-  heroTitle: 'Pjesë dhe makineri ndërtimi,',
-  heroTitleAccent: 'gati për kantier.',
+  heroTitle: 'Pjesë dhe makineri ndërtimi',
+  heroTitleAccent: '',
   heroLead:
     'Ekskavatorë, dumper, kova dhe pjesë këmbimi nga fusha jonë. Shtojini në listë dhe merrni çmimin me foto reale në WhatsApp, brenda ditës.',
   heroVideo: '/assets/hero.mp4',

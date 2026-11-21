@@ -1,6 +1,6 @@
 /**
  * Import a photo from a link: an Instagram post/reel, a TikTok video, or a
- * direct image URL. The image is downloaded and stored in MongoDB, because
+ * direct image URL. The image is downloaded and stored in R2, because
  * Instagram and TikTok CDN links expire after a few days and block hotlinking.
  */
 import { route, send, readBody, requireAdmin, NO_CACHE } from '../../lib/http.js'

@@ -1,7 +1,7 @@
 /**
- * One entry point for every /api route. Vercel Hobby allows at most 12
- * functions per deployment, so all endpoints share a single function and are
- * dispatched here. Route modules live in server/routes/.
+ * One entry point for every /api route, called by the Cloudflare Pages
+ * Function functions/api/[[path]].js (and by the Vite dev plugin).
+ * Route modules live in server/routes/.
  */
 import catalog from './routes/catalog.js'
 import health from './routes/health.js'
@@ -57,7 +57,7 @@ function match(path) {
 
 export default async function router(req, res) {
   const url = new URL(req.url, 'http://localhost')
-  // the Vercel rewrite passes the original path as ?__path=
+  // ?__path= is kept for the old Vercel rewrite; Pages passes the real path
   const rawPath = url.searchParams.get('__path') ?? url.pathname.replace(/^\/api\/?/, '')
   url.searchParams.delete('__path')
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-21 — Moved to Cloudflare Pages (live)
+- **Why:** the Vercel deployment was disabled (402 DEPLOYMENT_DISABLED) and the MongoDB Atlas cluster no longer exists (its DNS record is gone), so the site was down and the old live data could not be exported. The catalogue was rebuilt from `shared/seed.js` (existing items + the new November stock).
+- **Live:** https://makineri-lami.pages.dev (Pages project `makineri-lami`, deployed with `wrangler pages deploy`).
+- **API:** one Pages Function `functions/api/[[path]].js` adapts Fetch requests to the existing Node-style `server/router.js`; route files are unchanged.
+- **Data:** D1 database `makineri-lami` (binding `DB`, schema in `migrations/0001_init.sql`: products / categories / settings as JSON documents). Seeds itself on first request when empty.
+- **Uploaded photos:** R2 bucket `makineri-lami-images` (binding `IMAGES`), served from `/api/images/<id>` with immutable caching.
+- **Secrets:** `ADMIN_PASSWORD` set on the Pages project (same value as before). `MONGODB_*` no longer used; `mongodb` package removed.
+- `public/_headers` replaces the header rules from `vercel.json`. `api/` and `vercel.json` are still in the repo, unused.
+- Removed `scripts/import-inventory.mjs` (MongoDB import, no longer needed).
+- Hero headline shortened to “Pjesë dhe makineri ndërtimi” (accent line removed).
+- Header on desktop aligns with the full-bleed hero; the search box stays inside the black panel (hidden over the hero between 981–1240px). Larger hero type on screens ≥1700px.
+
 ## 2026-11-21 — New inventory + magazine redesign
 
 ### Catalogue data
@@ -7,9 +19,8 @@
   Komatsu PC340NLC, Astra HD7 mixer, Scania 114L 380, Terex PS6000, Thwaites and Toldo dumpers, three Iveco Stralis cabs, a crawler excavator (ex-TIEKU), a forklift, a bucket lot, a steel lattice section and a parts lot.
 - New categories: `kamione` (Kamionë & kabina) and `pjese` (Pjesë të ndryshme).
 - New stock uses negative `order` values so it lists first. Komatsu, Astra, Scania and Terex PS6000 are `featured`.
-- Removed sold listings `M-330` (CAT 330) and `M-DMP` (Terex Benford) from the seed. On the live DB they are set `active:false`, not deleted.
+- Removed sold listings `M-330` (CAT 330) and `M-DMP` (Terex Benford) from the seed. 
 - Thwaites dumper trimmed to one photo per angle (4 of 8).
-- `scripts/import-inventory.mjs`: one-off import for an existing MongoDB (seeding only runs on an empty DB). Dry run by default, `--write` to apply. Skips refs/slugs that already exist and hides the sold refs.
 
 ### Storefront rules
 - Products without photos are hidden from the storefront, and so are categories left empty by that (`visible()` in `src/lib/store.jsx`). Admin still shows and edits them.
